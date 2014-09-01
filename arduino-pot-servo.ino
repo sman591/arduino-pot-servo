@@ -1,0 +1,62 @@
+#include <Servo.h>
+Servo servo;              // create servo object to control a servo
+
+int  potPin       = 0;    // select the input pin for the potentiometer
+int  ledPin       = 13;   // select the pin for the LED
+int  swPin        = 2;    // select the input pin for the potentiometer
+int  val          = 0;    // variable to store the value coming from the sensor
+int  pos          = 10;   // variable to
+int  ledTimer     = 0;
+bool ledOn        = true;
+bool swState      = false;
+bool autoServo    = false;
+bool autoServoInc = true;
+
+void setup() {
+  pinMode(ledPin, OUTPUT); // declare the ledPin as an OUTPUT
+  pinMode(swPin, INPUT);   // declare the swPin as an INPUT
+  servo.attach(9);         // attach servo to port 9
+}
+
+void loop() {
+  swState = digitalRead(swPin);
+
+  autoServo = (swState == LOW);
+
+  if (autoServo) {
+    digitalWrite(ledPin, LOW);
+    servo.write(val);
+    delay(5);
+    if (autoServoInc) {
+      val++;
+    }
+    else {
+      val--;
+    }
+    if (val >  50 || val < 0) {
+      autoServoInc = !autoServoInc;
+    }
+  }
+  else {
+    val = analogRead(potPin) / 5.683333333;    // read the value from the sensor
+    servo.write(val);
+    // LED Values
+    if (ledOn) {
+      digitalWrite(ledPin, HIGH);
+    }
+    else {
+      digitalWrite(ledPin, LOW);
+    }
+
+  }
+
+  // LED Timer
+  ledTimer++;
+  if (ledTimer > val * 2) {
+    ledTimer = 0;
+    ledOn = !ledOn;
+  }
+}
+
+
+
