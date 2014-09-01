@@ -5,7 +5,6 @@ int  potPin       = 0;    // select the input pin for the potentiometer
 int  ledPin       = 13;   // select the pin for the LED
 int  swPin        = 2;    // select the input pin for the potentiometer
 int  val          = 0;    // variable to store the value coming from the sensor
-int  pos          = 10;   // variable to
 int  ledTimer     = 0;
 bool ledOn        = true;
 bool swState      = false;
