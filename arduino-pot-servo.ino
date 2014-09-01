@@ -23,6 +23,12 @@ void loop() {
 
   if (swState == LOW) {
     digitalWrite(ledPin, LOW);
+
+    if (val < autoServoMin)
+      val = autoServoMin;
+    else if (val > autoServoMax)
+      val = autoServoMax;
+
     servo.write(val);
     delay(5);
 
@@ -30,9 +36,6 @@ void loop() {
       val++;
     else
       val--;
-
-    if (val > autoServoMax || val < autoServoMin)
-      autoServoInc = !autoServoInc;
   }
   else {
     val = analogRead(potPin) / 5.683333333;
