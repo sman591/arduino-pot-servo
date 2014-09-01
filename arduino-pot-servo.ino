@@ -1,12 +1,14 @@
 #include <Servo.h>
-Servo servo;              // create servo object to control a servo
+Servo servo;               // create servo object to control a servo
 
-int  potPin       = 0;    // select the input pin for the potentiometer
-int  ledPin       = 13;   // select the pin for the LED
-int  swPin        = 2;    // select the input pin for the potentiometer
-int  val          = 0;    // variable to store the value coming from the sensor
+int  potPin       = 0;     // select the input pin for the potentiometer
+int  ledPin       = 13;    // select the pin for the LED
+int  swPin        = 2;     // select the input pin for the potentiometer
+int  val          = 0;     // variable to store the value coming from the sensor
 int  ledTimer     = 0;
-bool ledOn        = true;
+int  autoServoMin = 0;     // minimum value to automatically oscillate between
+int  autoServoMax = 50;    // maximum value to automatically oscillate between
+bool ledOn        = true;  // default LED to on
 bool swState      = false;
 bool autoServoInc = true;
 
@@ -29,7 +31,7 @@ void loop() {
     else
       val--;
 
-    if (val > 50 || val < 0)
+    if (val > autoServoMax || val < autoServoMin)
       autoServoInc = !autoServoInc;
   }
   else {
