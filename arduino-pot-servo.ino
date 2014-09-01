@@ -27,30 +27,26 @@ void loop() {
     digitalWrite(ledPin, LOW);
     servo.write(val);
     delay(5);
-    if (autoServoInc) {
+
+    if (autoServoInc)
       val++;
-    }
-    else {
+    else
       val--;
-    }
-    if (val >  50 || val < 0) {
+
+    if (val > 50 || val < 0)
       autoServoInc = !autoServoInc;
-    }
   }
   else {
-    val = analogRead(potPin) / 5.683333333;    // read the value from the sensor
+    val = analogRead(potPin) / 5.683333333;
     servo.write(val);
-    // LED Values
-    if (ledOn) {
+
+    if (ledOn)
       digitalWrite(ledPin, HIGH);
-    }
-    else {
+    else
       digitalWrite(ledPin, LOW);
-    }
 
   }
 
-  // LED Timer
   ledTimer++;
   if (ledTimer > val * 2) {
     ledTimer = 0;
