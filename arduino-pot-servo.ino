@@ -9,7 +9,6 @@ int  pos          = 10;   // variable to
 int  ledTimer     = 0;
 bool ledOn        = true;
 bool swState      = false;
-bool autoServo    = false;
 bool autoServoInc = true;
 
 void setup() {
@@ -21,9 +20,7 @@ void setup() {
 void loop() {
   swState = digitalRead(swPin);
 
-  autoServo = (swState == LOW);
-
-  if (autoServo) {
+  if (swState == LOW) {
     digitalWrite(ledPin, LOW);
     servo.write(val);
     delay(5);
